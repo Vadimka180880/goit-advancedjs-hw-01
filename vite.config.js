@@ -3,46 +3,50 @@ import { glob } from 'glob';
 import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 import SortCss from 'postcss-sort-media-queries';
+import path from 'path';
 
 export default defineConfig(({ command }) => {
   return {
     define: {
-      [command === 'serve' ? 'global' : '_global']: {},
+      global: {}, 
     },
-    root: 'src',
+    root: 'src', 
+    publicDir: 'public', 
     build: {
+      outDir: '../dist',
       sourcemap: true,
       rollupOptions: {
-        input: glob.sync('./src/*.html'),
+        input: glob.sync('./public/*.html').reduce((entries, file) => {
+          const fileName = path.basename(file, '.html');
+          entries[fileName] = path.resolve(__dirname, file);
+          return entries;
+        }, {}),
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
               return 'vendor';
             }
           },
-          entryFileNames: chunkInfo => {
-            if (chunkInfo.name === 'commonHelpers') {
-              return 'commonHelpers.js';
-            }
-            return '[name].js';
-          },
-          assetFileNames: assetInfo => {
-            if (assetInfo.name && assetInfo.name.endsWith('.html')) {
-              return '[name].[ext]';
-            }
-            return 'assets/[name]-[hash][extname]';
-          },
+          assetFileNames: 'assets/[name]-[hash][extname]',
         },
       },
-      outDir: '../dist',
       emptyOutDir: true,
+    },
+    css: {
+      postcss: {
+        plugins: [
+          SortCss({
+            sort: 'mobile-first',
+          }),
+        ],
+      },
     },
     plugins: [
       injectHTML(),
-      FullReload(['./src/**/**.html']),
-      SortCss({
-        sort: 'mobile-first',
-      }),
+      FullReload(['./public/**/*.html']),
     ],
+    server: {
+      open: '/public/index.html', 
+    },
   };
 });
