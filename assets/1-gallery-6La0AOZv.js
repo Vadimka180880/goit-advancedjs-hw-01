@@ -12,3 +12,4 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         </a>
       </li>
     `).join(""),j=document.querySelector(".gallery");j.innerHTML=q(z);new F(".gallery a",{captionsData:"alt",captionDelay:250,overlayOpacity:.8});
+//# sourceMappingURL=1-gallery-6La0AOZv.js.map
