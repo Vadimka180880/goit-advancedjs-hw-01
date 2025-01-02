@@ -10,8 +10,8 @@ export default defineConfig(() => ({
   },
   build: {
     outDir: '../dist',
-    sourcemap: true,
     emptyOutDir: true,
+    sourcemap: true,
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'src/public/index.html'),
@@ -19,7 +19,9 @@ export default defineConfig(() => ({
         form: path.resolve(__dirname, 'src/public/2-form.html'),
       },
     },
+    cssCodeSplit: true, 
   },
+  
   server: {
     open: '/public/index.html',
   },
