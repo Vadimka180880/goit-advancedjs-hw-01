@@ -3,15 +3,11 @@ import path from 'path';
 
 export default defineConfig(() => ({
   base: '/goit-advancedjs-hw-01/', 
-  root: 'src',
-  publicDir: 'public',
-  define: {
-    global: 'window', 
-  },
+  root: 'src', 
+  publicDir: 'public', 
   build: {
-    outDir: '../dist',
+    outDir: '../dist', 
     emptyOutDir: true,
-    sourcemap: true,
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'src/public/index.html'),
@@ -19,10 +15,8 @@ export default defineConfig(() => ({
         form: path.resolve(__dirname, 'src/public/2-form.html'),
       },
     },
-    cssCodeSplit: true, 
   },
-  
   server: {
-    open: '/public/index.html',
+    open: '/public/index.html', 
   },
 }));
