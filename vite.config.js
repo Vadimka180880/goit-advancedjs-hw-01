@@ -10,9 +10,9 @@ export default defineConfig(() => ({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'src/public/index.html'),
-        gallery: path.resolve(__dirname, 'src/public/1-gallery.html'),
-        form: path.resolve(__dirname, 'src/public/2-form.html'),
+        main: path.resolve(__dirname, 'src/index.html'),
+        gallery: path.resolve(__dirname, 'src/1-gallery.html'),
+        form: path.resolve(__dirname, 'src/2-form.html'),
       },
     },
   },
